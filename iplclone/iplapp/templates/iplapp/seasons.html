@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IPL Season {{ year }}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'iplapp/bulma.css' %}">
+    <style>
+        .select-season
+        {
+            float:right;
+            margin-top:-40px;
+            margin-right: 10px ;
+            width:20%;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+        <h1 class="title is-3 ">IPL Season {{ year }} Matches</h1>
+
+
+        <select class="select-season" onchange="location = this.options[this.selectedIndex].value">
+            <option>Select Season</option>
+            {% for row in seasons_list %}
+                <option value="{% url 'season_details' row.0%}">{{ row.0 }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <table class="table is-hoverable is-bordered is-striped">
+            <tr >
+                <th>Teams Played</th>
+                <th>Venue</th>
+                <th>Toss Result - Decision</th>
+                <th>Result</th>
+                <th>Player Of Match</th>
+            </tr>
+            {% for row in matches %}
+                <tr>
+                <td>{{ row.team1 }} <i>vs</i> {{ row.team2 }}</td>
+                <td>{{ row.venue }}</td>
+                <td>{{ row.toss_winner }} - {{ row.toss_decision }}</td>
+                <td>{{ row.result }}</td>
+                <td>{{ row.player_of_match }}</td>
+
+                </tr>
+            {% endfor %}
+        </table>
+</body>
+</html>
