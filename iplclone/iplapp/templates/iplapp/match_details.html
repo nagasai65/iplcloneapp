@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Match</title>
+    {% load static %}
+    <link href="{% static 'iplapp/bulma.css' %}" rel="stylesheet" type="text/css">
+    <style>
+        #second-inning
+        {
+            display:none;
+        }
+        .ball
+        {
+            padding:10px;
+            border:1px solid black;
+            border-radius: 50%;
+            margin-left:5px;
+            margin-top:15px;
+        }
+    </style>
+</head>
+<body>
+        {% include "iplapp/userheader.html" with request=request %}
+        <h1 class="title is-2">{{ match.0.team1 }} <i>vs</i> {{ match.0.team2 }}</h1>
+        <h1 class="title is-4">Toss : {{ match.0.toss_winner }}  - Opt : {{ match.0.toss_decision }}</h1>
+        <h1 class="title is-4">{{ match.0.winner }} Won The Match</h1>
+        <h1 class="title is-4">Man of the Match - {{ match.0.player_of_match }}</h1>
+
+        <div class="box outer">
+            <h1 class="title is-4">Top 3 Run Scorers</h1>
+            {% for row in toprunners %}
+                <div class="box inner"  >
+                    <span>{{ row.batsman }}</span> |
+                    <span>{{ row.batting_team }}</span> |
+                    <span>{{ row.runs_sum }}</span> |
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="box outer">
+            <h1 class="title is-4">Top 3 Wicket takers</h1>
+            {% for row in topwicketers %}
+                <div class="box inner">
+                    <span>{{ row.bowler }}</span> |
+                    <span>{{ row.bowling_team }}</span> |
+                    <span>{{ row.count }}</span> |
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="tabs is-centered">
+            <ul>
+                <li class="tab" onclick="show('first-inning',0)"><a>First Inning</a></li>
+                <li class="tab" onclick="show('second-inning',1)"><a >Second Inning</a></li>
+            </ul>
+        </div>
+        <div id="tabs-container">
+        <div id="first-inning" >
+        <h4 class="title is-4">First Inning - {{ first_inning.0.batting_team }} | </h4>
+        <div class="box">
+            {% for row in first_inning %}
+                {% if row.ball == 1 %}
+                <br><br>Over : {{ row.over }}
+                {% endif %}
+                <span class="ball">
+                    {% if row.player_dismissed is None %}
+                        {{ row.total_runs }}
+                    {% else %}
+                        W
+                    {% endif %}
+                </span>
+
+            {% endfor %}
+        </div>
+        </div>
+        <div id="second-inning" >
+            <h4 class="title is-4">Second inning - {{ second_inning.0.batting_team }}</h4>
+            <div class="box outer">
+            {% for row in second_inning %}
+                 {% if row.ball == 1 %}
+                     <br><br>
+                     Over : {{ row.over }}
+                {% endif %}
+                <span class="ball">
+                {% if row.player_dismissed is None %}
+                    {{ row.total_runs }}
+                {% else %}
+                    W
+                {% endif %}
+                </span>
+            {% endfor %}
+            </div>
+        </div>
+        </div>
+<script>
+    function show(inning) {
+        if(inning=="first-inning")
+        {
+            document.getElementById("first-inning").style.display="block";
+            document.getElementById("second-inning").style.display="none";
+        }
+        else
+        {
+            document.getElementById("first-inning").style.display="none";
+            document.getElementById("second-inning").style.display="block";
+        }
+
+    }
+</script>
+</body>
+</html>

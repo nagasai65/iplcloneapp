@@ -11,12 +11,13 @@
             float:right;
             margin-top:-40px;
             margin-right: 10px ;
-            width:20%;
-            height: 30px;
+            width:30%;
+            height: 40px;
         }
     </style>
 </head>
 <body>
+    {% include "iplapp/userheader.html" with request=request %}
         <h1 class="title is-3 ">IPL Season {{ year }} Matches</h1>
 
 
@@ -27,24 +28,37 @@
             {% endfor %}
         </select>
         <br>
-        <table class="table is-hoverable is-bordered is-striped">
-            <tr >
-                <th>Teams Played</th>
-                <th>Venue</th>
-                <th>Toss Result - Decision</th>
-                <th>Result</th>
-                <th>Player Of Match</th>
-            </tr>
+        <div class="box outer">
             {% for row in matches %}
-                <tr>
-                <td>{{ row.team1 }} <i>vs</i> {{ row.team2 }}</td>
-                <td>{{ row.venue }}</td>
-                <td>{{ row.toss_winner }} - {{ row.toss_decision }}</td>
-                <td>{{ row.result }}</td>
-                <td>{{ row.player_of_match }}</td>
 
-                </tr>
+               <div class="box inner">
+                <h1 class="title is-6">{{ row.team1 }} <i>vs</i> {{ row.team2 }}</h1>
+                <span>Venue : {{ row.venue }}</span><br>
+                <span>Toss : {{ row.toss_winner }} - {{ row.toss_decision }}</span><br>
+                {% if row.result != 'normal' %}
+                   <span>{{ row.result }}</span><br>
+                {% else %}
+                    <span>Player of Match - {{ row.player_of_match }}</span><br>
+                {% endif %}
+                   <span style="float:right;margin-top: -40px;"><a href="{% url 'match_details' year row.match_id %}">View Match Details</a></span>
+                </div>
             {% endfor %}
-        </table>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if matches.has_previous %}
+                    <a href="?page=1">&laquo;first</a>
+                    <a href="?page={{ matches.previous_page_number }}">Previous</a>
+                {% endif %}
+            <span class="current">
+                Page {{ matches.number }} of {{ matches.paginator.num_pages }}.
+            </span>
+            {% if matches.has_next %}
+                <a href="?page={{ matches.next_page_number }}">next</a>
+                <a href="?page={{ matches.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+            </span>
+        </div>
+        </div>
 </body>
 </html>

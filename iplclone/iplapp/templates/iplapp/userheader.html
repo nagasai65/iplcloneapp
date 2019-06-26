@@ -1,0 +1,18 @@
+<style>
+    .top-box
+    {
+        background-color: #1ca64c;
+        text-align: right;
+    }
+</style>
+<div class="box top-box">
+    <div>
+        <span>Hi {{ request.user }}</span><br>
+        {% if request.user.is_authenticated %}
+            <span><a href="{% url 'logout' %}">logout</a></span>
+        {% else %}
+            <span><a href="{% url 'login' %}">login</a></span>
+        {% endif %}
+    <br>
+    </div>
+</div>

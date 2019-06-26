@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IPL | Register</title>
+    {% load static %}
+    <link href="{% static 'iplapp/bulma.css' %}" rel="stylesheet" type="text/css">
+    <style>
+        .x
+        {
+            width:50%;
+            margin: 10px auto;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="box outer">
+    <div class="box x">
+
+    <h1 class="title is-center">Register</h1>
+        {% if messages %}
+        <div class="notification is-danger">
+            <button class="delete"></button>
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+           <form method="post">
+               {% csrf_token %}
+            <span>First Name </span>
+            <span><input type="text" name="first_name" class="input"></span>
+
+            <br><br>
+            <span>Last Name </span>
+            <span><input type="text" name="last_name" class="input"></span>
+
+            <br><br>
+            <span>User Name </span>
+            <span><input type="text" name="username" class="input"></span>
+
+            <br><br>
+            <span>Password </span>
+            <span><input type="password" name="password" class="input"></span>
+
+            <br><br>
+            <span><input type="submit" value="Create" class="button"> </span>
+            <br><br>
+        <h1 class="title is-5">Already have an account click <a href="{% url 'login' %}">here to Login</a></h1>
+        </form>
+    </div>
+</div>
+</body>
+</html>
