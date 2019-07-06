@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IPL | {{ team }}</title>
+    {% load static %}
+    <link href="{% static "iplapp/bulma.css" %}" rel="stylesheet" type="text/css">
+    <style>
+        .season-box
+        {
+            margin-top:3%;
+            width:60%;
+            margin: auto;
+            text-align: center;
+        }
+        .season-name
+        {
+            margin-top:-35px;
+            float: left;
+        }
+        .list
+        {
+            height:70vh;
+            overflow: scroll;
+        }
+        .team-name
+        {
+            text-align: center;
+            font-size: 200%;
+            background-color: burlywood;
+        }
+    </style>
+</head>
+<body>
+{% include 'iplapp/userheader.html' %}
+<div class="team-name">{{ team }}</div>
+{% load my_operations %}
+<div class="box list">
+    {% for match in matches %}
+        {% if match.noof_matches_played != 0 %}
+        <div class="box season-box">
+        <button class="button  is-success season-name">{{ match.season }}</button><strong style="alignment: center">{{ match|getSeasonInfo:team }}</strong>
+        <a style="float:right" class="button is-link " href="{% url 'team_season_wise' team match.season %}">Full Archive</a>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+</div>
+</body>
+</html>

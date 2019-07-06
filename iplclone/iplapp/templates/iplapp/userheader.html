@@ -1,18 +1,42 @@
 <style>
     .top-box
     {
-        background-color: #1ca64c;
-        text-align: right;
+        border:1px solid #1ca64c;
+        padding:0;
     }
+    .navbar-start>.navbar-item:hover
+    {
+        border:1px solid #0f81cc;
+    }
+
 </style>
 <div class="box top-box">
-    <div>
-        <span>Hi {{ request.user }}</span><br>
-        {% if request.user.is_authenticated %}
-            <span><a href="{% url 'logout' %}">logout</a></span>
-        {% else %}
-            <span><a href="{% url 'login' %}">login</a></span>
-        {% endif %}
-    <br>
+    <div class="navbar">
+    {% load static %}
+        <div class="navbar-brand"><img class="image is-64x64" src="{% static 'iplapp/ipl.png'%}"></div>
+
+        <div class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="{% url 'home' %}">Home</a>
+            <a class="navbar-item" href="{% url 'season_details' 2019 %}">Seasons</a>
+            <a class="navbar-item" href="{% url 'teams_page' %}">Teams</a>
+            <a class="navbar-item" href="{% url 'points_table' 2019 %}">Points Table</a>
+        </div>
+        <div class="navbar-end">
+            <span class="navbar-item">Welcome
+                {% if request.user.is_authenticated %}
+                 {{ request.user }}
+                {% endif %}
+            </span>
+            <span class="navbar-item">
+            {% if request.user.is_authenticated %}
+                <a class="button is-medium is-outlined is-danger" href="{% url 'logout'%}?next={{ request.path }}">Logout</a>
+            {% else %}
+                <a class="button is-outlined is-medium is-success" href="{% url 'login'%}?next={{ request.path }}">Login</a>
+            {% endif %}
+            </span>
+
+        </div>
+        </div>
     </div>
 </div>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IPL | Teams </title>
+    {% load static %}
+    <link href="{% static "iplapp/bulma.css" %}" rel="stylesheet" type="text/css">
+    <style>
+        .outer
+        {
+            display: inline-block;
+            width: 31%;
+            margin: 10px;
+        }
+        .card,.card-header-title
+        {
+            text-align: center;
+        }
+        .card-content .button
+        {
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .image>img
+        {
+            height:30vh;
+
+        }
+        .container
+        {
+            margin:auto;
+        }
+    </style>
+</head>
+<body>
+    {% include 'iplapp/userheader.html' %}
+<div class="container">
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Sunrisers Hyderabad</div>
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Sunrisers Hyderabad.png" %}" class="is-rounded" alt="Sunrisers Hyderabad"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Sunrisers Hyderabad' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Chennai Super Kings</div>
+                
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Chennai Super Kings.png" %}" class="is-rounded" alt="Chennai Super Kings"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Chennai Super Kings' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Mumbai Indians</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Mumbai Indians.png" %}" class="is-rounded" alt="Mumbai indians"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Mumbai Indians' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Delhi Daredevils</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Delhi Daredevils.png" %}" class="is-rounded" alt="Delhi Daredevils"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Delhi Daredevils' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Kings XI Punjab</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Kings XI Punjab.png" %}" class="is-rounded" alt="Kings XI Punjab"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Kings XI Punjab' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Kolkata Knight Riders</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Kolkata Knight Riders.png" %}" class="is-rounded" alt="Kolkata Knight Riders"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Kolkata Knight Riders' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Rajasthan Royals</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Rajasthan Royals.png" %}" class="is-rounded" alt="Rajasthan Royals"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Rajasthan Royals' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Royal&nbsp;Challengers&nbsp;Bangalore</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Royal Challengers Bangalore.png" %}" class="is-rounded" alt="Royal Challengers Bangalore"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Royal Challengers Bangalore' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Pune Warriors</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Pune Warriors.png" %}" class="is-rounded" alt="Pune Warriors"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Pune Warriors' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Kochi Tuskers Kerala</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Kochi Tuskers Kerala.png" %}" class="is-rounded" alt="Kochi Tuskers Kerala"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Kochi Tuskers Kerala' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Deccan Chargers</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Deccan Chargers.png" %}" class="is-rounded" alt="Deccan Chargers"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Deccan Chargers' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Delhi Capitals</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Delhi Capitals.png" %}" class="is-rounded" alt="Delhi Capitals"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Delhi Capitals' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Gujarat Lions</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Gujarat Lions.png" %}" class="is-rounded" alt="Gujarat Lions"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Gujarat Lions' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+    <div class=" outer">
+        <div class=" card">
+            <div class="card-header">
+                <div class="card-header-title">Rising Pune Supergiant</div>
+
+            </div>
+            <div class="card-image">
+                <div class="image"><img src="{% static "iplapp/Rising Pune Supergiant.png" %}" class="is-rounded" alt="Rising Pune Supergiant"></div>
+            </div>
+            <div class="card-content">
+                <a href="{% url 'team_homepage' 'Rising Pune Supergiant' %}" class="button is-primary">View Team Home Page</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -6,94 +6,183 @@
     {% load static %}
     <link href="{% static 'iplapp/bulma.css' %}" rel="stylesheet" type="text/css">
     <style>
-        #second-inning
-        {
-            display:none;
-        }
+
         .ball
         {
             padding:10px;
+            display: inline;
             border:1px solid black;
-            border-radius: 50%;
+            width:35px;
+            border-radius: 40%;
+            margin-left:5px;
+            margin-top:15px;
+            background-color: white;
+        }
+        .dot-ball
+        {
+            padding:10px;
+            display: inline;
+            width:35px;
+            border:1px solid black;
+            border-radius: 40%;
             margin-left:5px;
             margin-top:15px;
         }
+        .wicket
+        {
+            padding:10px;
+            display: inline;
+            width:35px;
+            border:1px solid black;
+            border-radius: 40%;
+            margin-left:5px;
+            margin-top:15px;
+            background-color: red;
+            opacity: 0.8;
+            color:white;
+        }
+        .top{
+            width:100%;
+            text-align: center;
+        }
+
+        #tabs-container
+        {
+            width:fit-content;
+            margin:auto;
+        }
+        #first-inning,#second-inning
+        {
+            display: inline-block;
+        }
+        .outer
+        {
+            width: 45%;
+            display: inline-block;
+        }
+        .overs
+        {
+            width:fit-content;
+        }
+        .logos{
+            text-align: center;
+        }
+
+        .logo
+        {
+            width:45% !important;
+            display: inline-block;
+        }
+        .logo>img
+        {
+            height:40vh;
+        }
+
+        .loser
+        {
+            opacity: 0.2;
+
+        }
+
     </style>
 </head>
 <body>
-        {% include "iplapp/userheader.html" with request=request %}
-        <h1 class="title is-2">{{ match.0.team1 }} <i>vs</i> {{ match.0.team2 }}</h1>
-        <h1 class="title is-4">Toss : {{ match.0.toss_winner }}  - Opt : {{ match.0.toss_decision }}</h1>
-        <h1 class="title is-4">{{ match.0.winner }} Won The Match</h1>
-        <h1 class="title is-4">Man of the Match - {{ match.0.player_of_match }}</h1>
+        {% include "iplapp/userheader.html" %}
+        {% static "" as baseurl %}
+               <center> {% if match.0.winner == match.0.team1 %}
+                   <h1 class="title is-primary is-4">{{ match.0.winner }} Won by {{ match.0.win_by_runs }} Runs </h1>
+                 {% else %}
+                   <h1 class="title is-primary is-4">{{ match.0.winner }} Won by {{ match.0.win_by_wickets }} Wickets</h1>
+                {% endif %}
+               </center>
+        <div class="logos">
+            <div class="logo">
+                <h1 class="title is-3">{{ team1_score.score }}/{{ team1_score.noofwic }}</h1>
+                <img class="{% if match.0.winner != match.0.team1 %}loser{% endif %}" src="{{ baseurl }}iplapp/{{ match.0.team1 }}.png">
 
+            </div>
+            <div class="logo">
+                <h1 class="title is-3">{{ team2_score.score }}/{{ team2_score.noofwic }}</h1>
+                <img class="{% if match.0.winner != match.0.team2 %}loser{% endif %}" src="{{ baseurl }}iplapp/{{ match.0.team2 }}.png">
+
+            </div>
+        </div>
+        <center>
+        <h1 class="title is-4">Toss : {{ match.0.toss_winner }}  - Opt : {{ match.0.toss_decision }}</h1>
+
+        <h1 class="title is-4">Man of the Match - {{ match.0.player_of_match }}</h1>
+        </center>
+        <div class="top">
         <div class="box outer">
             <h1 class="title is-4">Top 3 Run Scorers</h1>
             {% for row in toprunners %}
                 <div class="box inner"  >
                     <span>{{ row.batsman }}</span> |
                     <span>{{ row.batting_team }}</span> |
-                    <span>{{ row.runs_sum }}</span> |
+                    <span>{{ row.runs_sum }}&nbsp;runs</span>
                 </div>
             {% endfor %}
 
         </div>
-
         <div class="box outer">
             <h1 class="title is-4">Top 3 Wicket takers</h1>
             {% for row in topwicketers %}
                 <div class="box inner">
                     <span>{{ row.bowler }}</span> |
                     <span>{{ row.bowling_team }}</span> |
-                    <span>{{ row.count }}</span> |
+                    <span>{{ row.count }}&nbsp;Wickets</span>
                 </div>
             {% endfor %}
-
+        </div>
         </div>
 
         <div class="tabs is-centered">
             <ul>
-                <li class="tab" onclick="show('first-inning',0)"><a>First Inning</a></li>
-                <li class="tab" onclick="show('second-inning',1)"><a >Second Inning</a></li>
+                <li class="tab is-active" id="first" onclick="show('first-inning',0)"><a class="button is-large">First Inning</a></li>
+                <li class="tab" id="second" onclick="show('second-inning',1)"><a class="button is-large">Second Inning</a></li>
             </ul>
         </div>
         <div id="tabs-container">
-        <div id="first-inning" >
-        <h4 class="title is-4">First Inning - {{ first_inning.0.batting_team }} | </h4>
-        <div class="box">
-            {% for row in first_inning %}
-                {% if row.ball == 1 %}
-                <br><br>Over : {{ row.over }}
-                {% endif %}
-                <span class="ball">
-                    {% if row.player_dismissed is None %}
-                        {{ row.total_runs }}
-                    {% else %}
-                        W
-                    {% endif %}
-                </span>
-
-            {% endfor %}
-        </div>
-        </div>
-        <div id="second-inning" >
-            <h4 class="title is-4">Second inning - {{ second_inning.0.batting_team }}</h4>
-            <div class="box outer">
-            {% for row in second_inning %}
-                 {% if row.ball == 1 %}
-                     <br><br>
-                     Over : {{ row.over }}
-                {% endif %}
-                <span class="ball">
-                {% if row.player_dismissed is None %}
-                    {{ row.total_runs }}
-                {% else %}
-                    W
-                {% endif %}
-                </span>
-            {% endfor %}
+            <div id="first-inning" >
+                <div class="box overs">
+                    <h4 class="title is-4">{{ first_inning.0.batting_team }}  </h4>
+                    {% for row in first_inning %}
+                        {% if row.ball == 1 %}
+                        <br><br>Over : {{ row.over }}
+                        {% endif %}
+                        {% if row.player_dismissed %}
+                            <pre class="wicket">w/<sub>{{ row.total_runs }}</sub></pre>
+                        {% else %}
+                            {% if row.total_runs == 0 %}
+                                <pre class="dot-ball">.</pre>
+                            {% else %}
+                                <pre class="ball" style="background-color:{% if row.total_runs == 6 %}lawngreen{% elif row.total_runs == 4 %}lightgreen{% endif %}">{{ row.total_runs }}</pre>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
+            <div id="second-inning" style="display: none" >
+                <div class="box overs">
+                    <h4 class="title is-4">{{ second_inning.0.batting_team }}</h4>
+                    {% for row in second_inning %}
+                         {% if row.ball == 1 %}
+                             <br><br>
+                             Over : {{ row.over }}
+                        {% endif %}
+
+                        {% if row.player_dismissed %}
+                            <pre class="wicket">w/<sub>{{ row.total_runs }}</sub></pre>
+                        {% else %}
+                            {% if row.total_runs == 0 %}
+                                <pre class="dot-ball">.</pre>
+                            {% else %}
+                                <pre class="ball" style="background-color:{% if row.total_runs == 6 %}lawngreen{% elif row.total_runs == 4 %}lightgreen{% endif %}">{{ row.total_runs }}</pre>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
 <script>
     function show(inning) {
@@ -101,11 +190,21 @@
         {
             document.getElementById("first-inning").style.display="block";
             document.getElementById("second-inning").style.display="none";
+            let class_name = document.getElementById("first").className.replace("is-active"," ");
+            class_name += " is-active";
+            document.getElementById("first").className=class_name;
+            class_name = document.getElementById("second").className.replace("is-active"," ");
+            document.getElementById("second").className=class_name;
         }
         else
         {
             document.getElementById("first-inning").style.display="none";
             document.getElementById("second-inning").style.display="block";
+            let class_name = document.getElementById("second").className.replace("is-active"," ");
+            class_name += " is-active";
+            document.getElementById("second").className=class_name;
+            class_name = document.getElementById("first").className.replace("is-active"," ");
+            document.getElementById("first").className=class_name;
         }
 
     }

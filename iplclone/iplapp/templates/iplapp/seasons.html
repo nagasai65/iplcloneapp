@@ -14,11 +14,35 @@
             width:30%;
             height: 40px;
         }
+        .inner
+        {
+            text-align: center;
+        }
+        .team1-img
+        {
+            position:absolute;
+            top:inherit;
+            left:inherit;
+        }
+        .team2-img
+        {
+            position:absolute;
+            top:inherit;
+            right:5%;
+            float: right;
+
+        }
+        .pagination
+        {
+            display: inline-block;
+            margin:10px auto;
+            width:-webkit-fill-available;
+        }
     </style>
 </head>
 <body>
-    {% include "iplapp/userheader.html" with request=request %}
-        <h1 class="title is-3 ">IPL Season {{ year }} Matches</h1>
+    {% include "iplapp/userheader.html" %}
+       <center><h1 class="title is-3 ">IPL {{ year }}</h1></center>
 
 
         <select class="select-season" onchange="location = this.options[this.selectedIndex].value">
@@ -28,11 +52,14 @@
             {% endfor %}
         </select>
         <br>
+    {% static 'iplapp/' as baseurl %}
         <div class="box outer">
             {% for row in matches %}
 
                <div class="box inner">
-                <h1 class="title is-6">{{ row.team1 }} <i>vs</i> {{ row.team2 }}</h1>
+                <img src="{{ baseurl }}{{ row.team1 }}.png" class="image is-96x96 team1-img">
+               <img src="{{ baseurl }}{{ row.team2 }}.png" class="image is-96x96 team2-img">
+                <h1 class=" title is-6">{{ row.team1 }} <i>vs</i> {{ row.team2 }}</h1>
                 <span>Venue : {{ row.venue }}</span><br>
                 <span>Toss : {{ row.toss_winner }} - {{ row.toss_decision }}</span><br>
                 {% if row.result != 'normal' %}
@@ -40,25 +67,26 @@
                 {% else %}
                     <span>Player of Match - {{ row.player_of_match }}</span><br>
                 {% endif %}
-                   <span style="float:right;margin-top: -40px;"><a href="{% url 'match_details' year row.match_id %}">View Match Details</a></span>
-                </div>
-            {% endfor %}
+                   <span><a class="button is-success is-outlined is-rounded" href="{% url 'match_details' year row.match_id %}">View Match Details</a></span>
+               
+               </div>
 
+            {% endfor %}
+        </div>
         <div class="pagination">
             <span class="step-links">
                 {% if matches.has_previous %}
-                    <a href="?page=1">&laquo;first</a>
-                    <a href="?page={{ matches.previous_page_number }}">Previous</a>
+                    <a class="button is-outlined is-dark" href="?page=1">&laquo;first</a>
+                    <a class="button is-outlined is-black" href="?page={{ matches.previous_page_number }}">Previous</a>
                 {% endif %}
             <span class="current">
-                Page {{ matches.number }} of {{ matches.paginator.num_pages }}.
+                Page {{ matches.number }} of {{ matches.paginator.num_pages }}
             </span>
             {% if matches.has_next %}
-                <a href="?page={{ matches.next_page_number }}">next</a>
-                <a href="?page={{ matches.paginator.num_pages }}">last &raquo;</a>
+                <a class="button is-outlined is-black" href="?page={{ matches.next_page_number }}">next</a>
+                <a class="button is-outlined is-dark" href="?page={{ matches.paginator.num_pages }}">last &raquo;</a>
             {% endif %}
             </span>
-        </div>
         </div>
 </body>
 </html>

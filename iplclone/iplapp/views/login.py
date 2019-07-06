@@ -6,6 +6,8 @@ from django.contrib import messages
 
 def logout_fun(request):
     logout(request)
+    if request.GET:
+        return redirect(request.GET['next'])
     return redirect('home')
 
 

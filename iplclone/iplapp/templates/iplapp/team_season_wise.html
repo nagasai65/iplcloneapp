@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IPL | {{ team }}-{{ matches.0.season }}</title>
+    {% load  static %}
+    <link href="{% static "iplapp/bulma.css" %}" rel="stylesheet" type="text/css">
+    <style>
+        .outer>div{
+            display: inline-block;
+            text-align: justify;
+            margin-right: 10px;
+        }
+
+        .logo>img
+        {
+            width:40%;
+            height:40vh;
+            margin:10px auto;
+        }
+        .loser-team-logo
+           {
+            opacity:0.5;
+           }
+        .winner-text
+        {
+            color:blue;
+        }
+        .teams-logo
+        {
+            display:inline-block;
+            width:25%;
+        }
+        .scores
+        {
+            width:40%;
+        }
+        .extra-det
+        {
+            width:25%;
+            overflow-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+{% include 'iplapp/userheader.html' %}
+{% static "" as baseurl %}
+    <div class="image logo">
+        <img src="{{ baseurl }}iplapp/{{ team }}.png">
+    </div>
+    <div>
+        {% for match in matches %}
+            <div class="box outer" >
+               <div class="logos">
+                <img src="{{ baseurl }}iplapp/{{ match.team1 }}.png" alt="{{ match.team1 }}" class="image is-64x64 teams-logo {% if match.team1 != match.winner %}loser-team-logo{% endif %}"> vs
+                <img src="{{ baseurl }}iplapp/{{ match.team2 }}.png" alt="{{ match.team2 }}" class="image is-64x64 teams-logo {% if match.team2 != match.winner %}loser-team-logo{% endif %}">
+               </div>
+               <div class="scores">
+                    <p class="{% if match.team1 == match.winner %}winner-text{% endif %}">
+                        {{ match.team1 }} {{ match.score1 }}/{{ match.wic1 }}
+                    </p>
+                   <br>
+                   <p  class="{% if match.team2 == match.winner %}winner-text{% endif %}">
+                       {{ match.team2 }} {{ match.score2 }}/{{ match.wic2 }}
+                   </p>
+               </div>
+            {% load my_operations %}
+               <div class="extra-det">
+                   <font color="#DC7633">{{ match.winner }} won by
+                   {% if match.winner == match.team1 %}
+                       {{ match.win_by_runs }} runs
+                    {% else %}
+                       {{ match.win_by_wickets }} wickets
+                   {% endif %}
+
+                   </font><br>
+                   <p>Venue :{{ match.venue }}</p>
+                   <span>{{ match.city }}</span><br>
+                   <a class="button is-info is-outlined" href="{% url "match_details" match.season match.match_id %}">View Match</a>
+               </div>
+            </div>
+        {% endfor %}
+
+    </div>
+</body>
+</html>

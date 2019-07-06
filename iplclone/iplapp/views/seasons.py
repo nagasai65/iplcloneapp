@@ -34,7 +34,6 @@ class Season(View):
             {'matches': matches,
              'seasons_list': seasons_list,
              'year': kwargs.get("year"),
-             'request':request,
              }
         )
 

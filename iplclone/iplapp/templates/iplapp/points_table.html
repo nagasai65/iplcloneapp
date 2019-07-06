@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IPL | Points Table</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'iplapp/bulma.css' %}" type="text/css">
+    <style>
+        select
+        {
+            width:30%;
+            height:40px;
+        }
+        .container{
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+        {% include "iplapp/userheader.html" with request=request %}
+        <div class="container">
+        <select onchange="location=this.options[this.selectedIndex].value">
+            <option>Select Season</option>
+            {% for season in seasons %}
+                <option value="{% url 'points_table' season.0 %}">{{ season.0 }}</option>
+            {% endfor %}
+        </select>
+        <table  align="center" class="table is-bordered is-hoverable is-striped">
+           <caption>IPL {{ year }} Points Table</caption>
+            <tr>
+                <th>Team</th>
+                <th>Points</th>
+            </tr>
+            {% for match in matches %}
+                <tr >
+                <td style="padding:15px;">{{ match.winner }}</td>
+                <td style="padding:15px;">{{ match.count }}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+        </div>
+</body>
+</html>
