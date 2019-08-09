@@ -84,6 +84,14 @@ DATABASES = {
         'USER':'forjango',
         'PASSWORD':'Nagasai41.'
     }
+    # 'default': {
+    #     'ENGINE':  'django.db.backends.mysql',
+    #     'HOST' : 'cresense.org',
+    #     'USER': 'cresense',
+    #     'NAME': 'cresense_ipl',
+    #     'PASSWORD': 'Cse@2k19',
+    #     'PORT': '3306'
+    # }
 }
 
 
