@@ -1,2 +1,2 @@
 # iplclone
-Developed using Django
+IPL Clone Django App
