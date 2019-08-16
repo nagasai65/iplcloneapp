@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'iplclone.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+   'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ipl',
         'USER':'forjango',
@@ -86,11 +86,10 @@ DATABASES = {
     }
     # 'default': {
     #     'ENGINE':  'django.db.backends.mysql',
-    #     'HOST' : 'cresense.org',
-    #     'USER': 'cresense',
-    #     'NAME': 'cresense_ipl',
-    #     'PASSWORD': 'Cse@2k19',
-    #     'PORT': '3306'
+    #     'HOST': 'nagasai.mysql.pythonanywhere-services.com',
+    #     'USER': 'nagasai',
+    #     'NAME': 'nagasai$ipl',
+    #     'PASSWORD': 'sixtyfive'
     # }
 }
 
